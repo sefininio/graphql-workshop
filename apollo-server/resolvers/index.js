@@ -5,6 +5,12 @@ import postUpvoteResolver from './post/upvote';
 import postCreateResolver from './post/create';
 
 const resolvers = {
+    Subscription: {
+        postAdded: {
+          // Additional event labels can be passed to asyncIterator creation
+          subscribe: (_, __, context) => context.pubSub.asyncIterator([context.topics.POST_ADDED]),
+        },
+      },
     Query: {
         author: authorResolver,
         post: postResolver,
